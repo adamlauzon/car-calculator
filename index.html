@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Car Purchase Calculator</h1>
+
+        <!-- My Current Vehicles Section -->
+        <section class="section">
+            <h2>My Current Vehicles</h2>
+            <div id="currentVehicles" class="list"></div>
+            <button onclick="addCurrentVehicle()" class="btn btn-primary">+ Add Vehicle</button>
+        </section>
+
+        <!-- Dealerships Section -->
+        <section class="section">
+            <h2>Dealerships</h2>
+            <div id="dealerships" class="list"></div>
+            <button onclick="addDealership()" class="btn btn-primary">+ Add Dealership</button>
+        </section>
+
+        <!-- Payment Comparison Section -->
+        <section class="section">
+            <h2>Payment Comparison</h2>
+            <div id="paymentComparison" class="comparison-grid"></div>
+        </section>
+    </div>
+
+    <!-- Modal for adding/editing current vehicle -->
+    <div id="vehicleModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeVehicleModal()">&times;</span>
+            <h3 id="vehicleModalTitle">Add Current Vehicle</h3>
+            <form id="vehicleForm" onsubmit="saveCurrentVehicle(event)">
+                <input type="hidden" id="vehicleId">
+                <div class="form-group">
+                    <label>Vehicle Name:</label>
+                    <input type="text" id="vehicleName" required>
+                </div>
+                <div class="form-group">
+                    <label>Amount Owing:</label>
+                    <input type="number" id="vehicleOwing" step="0.01" min="0" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for adding/editing dealership -->
+    <div id="dealershipModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDealershipModal()">&times;</span>
+            <h3 id="dealershipModalTitle">Add Dealership</h3>
+            <form id="dealershipForm" onsubmit="saveDealership(event)">
+                <input type="hidden" id="dealershipId">
+                <div class="form-group">
+                    <label>Dealership Name:</label>
+                    <input type="text" id="dealershipName" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for adding/editing dealership vehicle -->
+    <div id="dealershipVehicleModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDealershipVehicleModal()">&times;</span>
+            <h3 id="dealershipVehicleModalTitle">Add Vehicle</h3>
+            <form id="dealershipVehicleForm" onsubmit="saveDealershipVehicle(event)">
+                <input type="hidden" id="dealershipVehicleId">
+                <input type="hidden" id="dealershipVehicleDealershipId">
+                <div class="form-group">
+                    <label>Vehicle Name:</label>
+                    <input type="text" id="dealershipVehicleName" required>
+                </div>
+                <div class="form-group">
+                    <label>Price:</label>
+                    <input type="number" id="dealershipVehiclePrice" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label>Interest Rate (%):</label>
+                    <input type="number" id="dealershipVehicleInterest" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label>Payment Frequency:</label>
+                    <select id="dealershipVehicleFrequency" required>
+                        <option value="weekly">Weekly</option>
+                        <option value="biweekly">Bi-weekly</option>
+                        <option value="monthly" selected>Monthly</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Loan Duration (months):</label>
+                    <input type="number" id="dealershipVehicleDuration" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label>Down Payment (optional):</label>
+                    <input type="number" id="dealershipVehicleDownPayment" step="0.01" min="0" value="0">
+                </div>
+                <div class="form-group checkbox-group">
+                    <label>
+                        <input type="checkbox" id="dealershipVehicleIncludeTax">
+                        Include 13% HST in calculation
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for adding/editing appraisal -->
+    <div id="appraisalModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAppraisalModal()">&times;</span>
+            <h3 id="appraisalModalTitle">Add Appraisal</h3>
+            <form id="appraisalForm" onsubmit="saveAppraisal(event)">
+                <input type="hidden" id="appraisalDealershipId">
+                <div class="form-group">
+                    <label>Select Your Vehicle:</label>
+                    <select id="appraisalVehicleId" required></select>
+                </div>
+                <div class="form-group">
+                    <label>Appraisal Amount:</label>
+                    <input type="number" id="appraisalAmount" step="0.01" min="0" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js?v=3"></script>
+</body>
+</html>
